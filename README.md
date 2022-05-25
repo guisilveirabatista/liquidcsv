@@ -1,6 +1,6 @@
 # About The Project
 
-The goal of this project is to build a web application which uploads a csv file to a database.
+The goal of this project is to build a web application which uploads the contents of a csv file to a database and display it on a table.
 
 ## Prerequisites
 
