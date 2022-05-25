@@ -6,14 +6,8 @@
     <title>Example API Client</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-
-<style>
-    .grid,
-    .div-records {
-        margin-top: 20px;
-    }
-</style>
 
 <body>
 
@@ -24,19 +18,16 @@
             <input id="file-upload" type="file" />
             <button id="btn-upload"> Upload </button>
 
-            <div class="div-records">
-                <h3>Database Records</h3>
-                <table id="table-books" class="table table-bordered table-striped">
+            <div>
+                <h1>Database Records</h1>
+                <table id="books" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Title</th>
+                            <th>Id</th>
+                            <th>Author</th>
+                            <th>Title</th>
                         </tr>
                     </thead>
-                    <tbody id="books">
-
-                    </tbody>
                 </table>
             </div>
 
@@ -45,7 +36,7 @@
 
     <script>
         const btnUpload = document.getElementById("btn-upload");
-        const tableBooks = document.getElementById("books");
+        const books = document.getElementById("books");
         const apiUri = "../api";
 
 
@@ -58,7 +49,9 @@
 
             if (response.status == 200) {
 
-                tableBooks.innerHTML = '';
+                list.innerHTML = '';
+
+                const tbody = document.createElement("tbody");
 
                 obj.forEach(async function (book) {
 
@@ -84,9 +77,12 @@
                     tr.appendChild(tdAuthor);
                     tr.appendChild(tdTitle);
 
-                    tableBooks.appendChild(tr);
+                    tbody.appendChild(tr);
                 });
             }
+
+            table.appendChild(tbody);
+            table.style.display = "block";
         }
 
         document.addEventListener("DOMContentLoaded", async (e) => {
