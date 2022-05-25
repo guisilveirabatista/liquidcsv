@@ -13,6 +13,20 @@ class FileController
     private $requestMethod;
     private $fileGateway;
 
+    private $allowedMimeTypes = array(
+        'text/x-comma-separated-values',
+        'text/comma-separated-values',
+        'application/octet-stream',
+        'application/vnd.ms-excel',
+        'application/x-csv',
+        'text/x-csv',
+        'text/csv',
+        'application/csv',
+        'application/excel',
+        'application/vnd.msexcel',
+        'text/plain'
+    );
+
     public function __construct($db, $requestMethod)
     {
         $this->db = $db;
@@ -23,7 +37,6 @@ class FileController
     public function processRequest()
     {
         try {
-            $this->validateRequest();
             switch ($this->requestMethod) {
                 case 'GET':
                     $response = $this->get();
@@ -58,7 +71,10 @@ class FileController
 
     public function post()
     {
-        $fileName = 'php://input';
+        $this->validatePost();
+
+        $fileName = $this->getFileName();
+
         $delimiter = ';';
 
         $convertedData = $this->convertCsvToBooks($fileName, $delimiter);
@@ -93,14 +109,6 @@ class FileController
         $response['body'] = $errorMessage;
         return $response;
     }
-
-    private function serverErrorResponse($errorMessage)
-    {
-        http_response_code(500);
-        $response['body'] = $errorMessage;
-        return $response;
-    }
-
 
     function convertCsvToBooks($fileName, $delimiter)
     {
@@ -144,14 +152,39 @@ class FileController
         return $books;
     }
 
-    private function validateRequest()
+    private function validatePost()
     {
-        if (!isset($_SERVER['CONTENT_TYPE'])) {
+        $contentType = $this->getContentType();
+        if (empty($contentType)) {
             throw new ApiException("You must insert a file");
         }
-        if ($_SERVER['CONTENT_TYPE'] != "text/csv") {
-            throw new ApiException("File must be on csv format");
+
+        if (!in_array($contentType, $this->allowedMimeTypes)) {
+            throw new ApiException("File must be on a valid csv format");
         }
+    }
+
+    private function getFileName()
+    {
+        $fileName = 'php://input';
+        if ($this->isAjaxRequest()) {
+            $fileName = $_FILES['file']['tmp_name'];
+        }
+        return $fileName;
+    }
+
+    private function getContentType()
+    {
+        $contentType = $_SERVER['CONTENT_TYPE'];
+        if ($this->isAjaxRequest()) {
+            $contentType = mime_content_type($this->getFileName());
+        }
+        return $contentType;
+    }
+
+    public function isAjaxRequest()
+    {
+        return isset($_FILES['file']['tmp_name']);
     }
 
     private function sanitize($row)
