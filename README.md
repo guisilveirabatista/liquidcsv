@@ -6,6 +6,7 @@ The goal of this project is to build a web application which uploads a csv file 
 
 * PHP 8.0 or higher
 * Composer
+* MySql Database
 
 ## Installation
 
@@ -17,6 +18,8 @@ The goal of this project is to build a web application which uploads a csv file 
 ```sh
     composer install
 ```
+
+3. Make sure that you have a MySql database running and configured according to the parameters on the file `.env`
 
 ## Usage
 
