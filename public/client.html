@@ -109,6 +109,10 @@
             const response = await fetch(apiUri, {
                 method: "POST",
                 body: formData
+            }).then((response) => {
+                if (!response.ok) {
+                    alert(response)
+                }
             });
             loadBooks();
         });
