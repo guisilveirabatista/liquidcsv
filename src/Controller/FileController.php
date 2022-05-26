@@ -6,6 +6,8 @@ use Src\Gateway\FileGateway;
 use Src\Model\Book;
 use Src\Exception\ApiException;
 
+//TODO: Implement pagination
+//TODO: Implement unit tests
 class FileController
 {
 

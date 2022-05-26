@@ -46,6 +46,14 @@ This project follows the MVC and Rest architectures. The structure is organised 
 * The `src/gateway` package contains the database interfaces that provide CRUD functionality to the api.
 * The `src/config` package contains the database configuration.
 
+## What can be done moving forward?
+
+There are a few improvements I still would like to make in this application, some of them being:
+
+* Add pagination to the table
+* Add edit records feature
+* Implement unit tests
+
 ## Contact
 
 Guilherme Silveira - guisilveirabatista@gmail.com
