@@ -109,11 +109,12 @@
             const response = await fetch(apiUri, {
                 method: "POST",
                 body: formData
-            }).then((response) => {
-                if (!response.ok) {
-                    alert(response.statusText);
-                }
             });
+            let status = await response.status;
+            let text = await response.text();
+            if(status == 400){
+                alert(text);
+            }
             loadBooks();
         });
 

@@ -118,9 +118,6 @@ class FileController
     private function badRequestResponse($errorMessage)
     {
         http_response_code(400);
-
-        $response['status_code_header'] = `HTTP/1.1 400 Bad Request - ${errorMessage}`;
-
         $response['body'] = $errorMessage;
         return $response;
     }
