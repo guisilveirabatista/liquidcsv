@@ -111,7 +111,7 @@
                 body: formData
             }).then((response) => {
                 if (!response.ok) {
-                    alert(response)
+                    alert(response.statusText);
                 }
             });
             loadBooks();
