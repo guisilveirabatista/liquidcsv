@@ -20,7 +20,12 @@ if ($resource !== 'api') {
     exit;
 }
 
+$bookId = null;
+if (isset($uri[2])) {
+    $bookId = (int) $uri[2];
+}
+
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 $controller = new FileController($dbConnection, $requestMethod);
-$controller->processRequest();
+$controller->processRequest($bookId);

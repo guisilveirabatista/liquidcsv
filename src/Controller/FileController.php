@@ -34,7 +34,7 @@ class FileController
         $this->fileGateway = new FileGateway($db);
     }
 
-    public function processRequest()
+    public function processRequest($bookId)
     {
         try {
             switch ($this->requestMethod) {
@@ -48,7 +48,7 @@ class FileController
                     $response = $this->put();
                     break;
                 case 'DELETE':
-                    $response =  $this->delete();
+                    $response =  $this->delete($bookId);
                     break;
                 default:
                     $response = $this->notFoundResponse();
@@ -91,9 +91,19 @@ class FileController
         //TODO: implement put
     }
 
-    public function delete()
+    public function delete($bookId)
     {
-        //TODO: implement delete
+
+        $rowsAffected = $this->fileGateway->delete($bookId);
+
+        http_response_code(200);
+
+        if (empty($rowsAffected) || $rowsAffected = 0) {
+            http_response_code(404);
+        }
+
+        $response['body'] = null;
+        return $response;
     }
 
     private function notFoundResponse()

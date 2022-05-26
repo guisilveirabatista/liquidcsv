@@ -28,6 +28,7 @@
                             <th scope="col">Id</th>
                             <th scope="col">Author</th>
                             <th scope="col">Title</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody id="books">
@@ -59,10 +60,12 @@
                     const pId = document.createElement("p");
                     const pAuthor = document.createElement("p");
                     const pTitle = document.createElement("p");
+                    const btnDelete = document.createElement("button");
 
                     const tdId = document.createElement("td");
                     const tdAuthor = document.createElement("td");
                     const tdTitle = document.createElement("td");
+                    const tdDelete = document.createElement("td");
 
                     const tr = document.createElement("tr");
 
@@ -70,13 +73,25 @@
                     pAuthor.textContent = book.thing_name;
                     pTitle.textContent = book.thing_title;
 
+                    btnDelete.textContent = "Delete";
+                    btnDelete.className = "btn btn-secondary";
+                    btnDelete.data = book.thing_id;
+                    btnDelete.addEventListener("click", async function (e) {
+                        const response = await fetch(`${apiUri}/${this.data}`, {
+                            method: "DELETE"
+                        });
+                        loadBooks();
+                    });
+
                     tdId.appendChild(pId);
                     tdAuthor.appendChild(pAuthor);
                     tdTitle.appendChild(pTitle);
+                    tdDelete.appendChild(btnDelete);
 
                     tr.appendChild(tdId);
                     tr.appendChild(tdAuthor);
                     tr.appendChild(tdTitle);
+                    tr.appendChild(tdDelete);
 
                     tableBooks.appendChild(tr);
                 });
