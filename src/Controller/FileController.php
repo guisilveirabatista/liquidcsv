@@ -167,7 +167,7 @@ class FileController
     private function validatePost()
     {
         $contentType = $this->getContentType();
-        if (empty($contentType)) {
+        if (!isset($contentType)) {
             throw new ApiException("You must insert a file");
         }
 
@@ -187,7 +187,7 @@ class FileController
 
     private function getContentType()
     {
-        $contentType = $_SERVER['CONTENT_TYPE'];
+        $contentType = isset($_SERVER['CONTENT_TYPE']) ?? "";
         if ($this->isAjaxRequest()) {
             $contentType = mime_content_type($this->getFileName());
         }
