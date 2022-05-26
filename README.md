@@ -40,6 +40,7 @@ This project follows the MVC and Rest architectures. The structure is organised 
 
 * The `public` folder contains the html page used as the frontend of the application.
 * The `api` folder contains the end point of the rest api.
+* The `migrations` folder contains sql commands to migrate the database tables.
 * The `src/controller` package contains classes that handle HTTP requests.
 * The `src/model` package contains the entity classes.
 * The `src/gateway` package contains the database interfaces that provide CRUD functionality to the api.
