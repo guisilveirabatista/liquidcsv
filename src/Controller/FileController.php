@@ -2,7 +2,6 @@
 
 namespace Src\Controller;
 
-use Src\Gateway\FileGateway;
 use Src\Model\Book;
 use Src\Exception\ApiException;
 
@@ -11,7 +10,6 @@ use Src\Exception\ApiException;
 class FileController
 {
 
-    private $db;
     private $requestMethod;
     private $fileGateway;
 
