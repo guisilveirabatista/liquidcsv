@@ -29,11 +29,10 @@ class FileController
         'text/plain'
     );
 
-    public function __construct($db, $requestMethod)
+    public function __construct($requestMethod, $gateWay)
     {
-        $this->db = $db;
         $this->requestMethod = $requestMethod;
-        $this->fileGateway = new FileGateway($db);
+        $this->fileGateway = $gateWay;
     }
 
     public function processRequest($bookId)

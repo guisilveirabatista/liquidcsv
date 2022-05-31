@@ -2,10 +2,12 @@
 
 namespace Src\Gateway;
 
-class FileGateway
+use Src\Gateway\Gateway;
+
+class FileGateway implements Gateway
 {
 
-    private $db = null;
+    private $db;
 
     public function __construct($db)
     {
@@ -32,7 +34,7 @@ class FileGateway
         }
     }
 
-    public function delete($bookId)
+    public function delete(int $bookId)
     {
         $statement = "DELETE FROM testtable WHERE thing_id = :thing_id";
         try {

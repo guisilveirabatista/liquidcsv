@@ -1,6 +1,7 @@
 <?php
 
 use Src\Controller\FileController;
+use Src\Gateway\FileGateway;
 
 require "../bootstrap.php";
 
@@ -27,5 +28,6 @@ if (isset($uri[2])) {
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
-$controller = new FileController($dbConnection, $requestMethod);
+$fileGateway = new FileGateway($dbConnection);
+$controller = new FileController($requestMethod, $fileGateway);
 $controller->processRequest($bookId);
