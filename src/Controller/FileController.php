@@ -59,7 +59,7 @@ class FileController
         $this->sendResponse($response);
     }
 
-    public function get()
+    private function get()
     {
         $result = $this->fileGateway->read();
 
@@ -68,7 +68,7 @@ class FileController
         return $response;
     }
 
-    public function post()
+    private function post()
     {
         $this->validatePost();
 
@@ -85,12 +85,12 @@ class FileController
         return $response;
     }
 
-    public function put()
+    private function put()
     {
         //TODO: implement put
     }
 
-    public function delete($bookId)
+    private function delete($bookId)
     {
 
         $rowsAffected = $this->fileGateway->delete($bookId);
@@ -119,7 +119,7 @@ class FileController
         return $response;
     }
 
-    function convertCsvToBooks($fileName, $delimiter)
+    private function convertCsvToBooks($fileName, $delimiter)
     {
         if (!($fp = fopen($fileName, 'r'))) {
             throw new ApiException("Couldn't read file");
@@ -191,7 +191,7 @@ class FileController
         return $contentType;
     }
 
-    public function isAjaxRequest()
+    private function isAjaxRequest()
     {
         return isset($_FILES['file']['tmp_name']);
     }
