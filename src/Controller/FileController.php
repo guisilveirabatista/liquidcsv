@@ -56,6 +56,7 @@ class FileController
         } catch (ApiException $e) {
             $response = $this->badRequestResponse($e->getMessage());
         }
+
         $this->sendResponse($response);
     }
 
@@ -65,6 +66,7 @@ class FileController
 
         http_response_code(200);
         $response['body'] = json_encode($result);
+
         return $response;
     }
 
@@ -82,6 +84,7 @@ class FileController
 
         http_response_code(201);
         $response['body'] = null;
+
         return $response;
     }
 
@@ -102,6 +105,7 @@ class FileController
         }
 
         $response['body'] = null;
+
         return $response;
     }
 
@@ -109,6 +113,7 @@ class FileController
     {
         http_response_code(404);
         $response['body'] = null;
+
         return $response;
     }
 
@@ -116,6 +121,7 @@ class FileController
     {
         http_response_code(400);
         $response['body'] = $errorMessage;
+        
         return $response;
     }
 
