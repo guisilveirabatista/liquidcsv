@@ -17,6 +17,7 @@ class FileGateway implements Gateway
     public function insert(array $books)
     {
         $statement = "INSERT INTO testtable (thing_name, thing_title) VALUES (:thing_name, :thing_title);";
+
         try {
             $statement = $this->db->prepare($statement);
 
@@ -37,6 +38,7 @@ class FileGateway implements Gateway
     public function delete(int $bookId)
     {
         $statement = "DELETE FROM testtable WHERE thing_id = :thing_id";
+
         try {
             $statement = $this->db->prepare($statement);
 
@@ -53,9 +55,12 @@ class FileGateway implements Gateway
     public function read()
     {
         $statement = "SELECT * FROM testtable;";
+
         try {
             $statement = $this->db->query($statement);
+
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            
             return $result;
         } catch (\PDOException $e) {
             exit($e->getMessage());
