@@ -130,10 +130,13 @@ class FileController
 
         // parse csv rows into array
         $result = array();
+
         while (($row = fgetcsv($fp, separator: $delimiter)) !== FALSE) {
+            
             if (count($key) != count($row)) {
                 throw new ApiException("The file must have the same number of headers and columns");
             }
+
             $result[] = array_combine($key, $row);
         }
 
@@ -150,11 +153,13 @@ class FileController
             if (!is_numeric($item["id"])) {
                 throw new ApiException("All the ids in the file have to be of type integer");
             }
+
             $book = new Book(
                 id: $item["id"] ?? 0,
                 author: $item["author"],
                 title: $item["title"],
             );
+
             array_push($books, $book);
         }
 
@@ -164,6 +169,7 @@ class FileController
     private function validatePost()
     {
         $contentType = $this->getContentType();
+
         if (!isset($contentType)) {
             throw new ApiException("You must insert a file");
         }
@@ -176,18 +182,22 @@ class FileController
     private function getFileName()
     {
         $fileName = 'php://input';
+
         if ($this->isAjaxRequest()) {
             $fileName = $_FILES['file']['tmp_name'];
         }
+
         return $fileName;
     }
 
     private function getContentType()
     {
         $contentType = isset($_SERVER['CONTENT_TYPE']) ?? "";
+
         if ($this->isAjaxRequest()) {
             $contentType = mime_content_type($this->getFileName());
         }
+
         return $contentType;
     }
 
